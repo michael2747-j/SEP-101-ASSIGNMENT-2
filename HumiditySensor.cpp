@@ -9,7 +9,7 @@ int HumiditySensor::getHumidity() const {
     return currentHumidity;
 }
 
-//setter method to retrieve the current humidity value 
+//setter method to set the current humidity value 
 void HumiditySensor::setHumidity(int humidity) {
     currentHumidity = humidity;
 }
