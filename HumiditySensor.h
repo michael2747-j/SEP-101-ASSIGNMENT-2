@@ -4,7 +4,7 @@
 
 class HumiditySensor {
 private:
-    int currentHumidity;
+    int currentHumidity;  //data member to hold current humidity 
 
 public:
     HumiditySensor();  // Constructor
