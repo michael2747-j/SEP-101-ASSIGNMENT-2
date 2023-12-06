@@ -5,7 +5,7 @@
 
 class WindSensor {
 private:
-    float currentWindSpeed;
+    float currentWindSpeed; //data member to hold current wind speed
 
 public:
     WindSensor();  // Constructor
