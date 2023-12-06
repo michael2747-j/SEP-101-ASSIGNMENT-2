@@ -4,7 +4,7 @@
 
 class TemperatureSensor {
 private:
-    float currentTemperature;
+    float currentTemperature;  //data member to hold current temperature
 
 public:
     TemperatureSensor();  // Constructor
@@ -14,4 +14,3 @@ public:
 };
 
 #endif // TEMPERATURESENSOR_H
-
