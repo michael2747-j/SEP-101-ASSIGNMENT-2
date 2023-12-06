@@ -4,19 +4,20 @@
 #include <iostream>
 #include <iomanip>
 
+//constructor initializing currentTemperature to zero
 TemperatureSensor::TemperatureSensor() : currentTemperature(0.0) {}
 
-// function to get current rainfall
+// getter method to retrieve current temperature value
 float TemperatureSensor::getTemperature() const {
     return currentTemperature;
 }
 
-// function to set current rainfall
+// setter method to set temperature value
 void TemperatureSensor::setTemperature(float temperature) {
     currentTemperature = temperature;
 }
 
-// function to display rainfall
+// method to display the current temperature value
 void TemperatureSensor::displayTemperature() const {
     std::cout << "Current temperature: " << std::fixed << std::setprecision(2)
         << currentTemperature << " degrees Celsius." << std::endl;
