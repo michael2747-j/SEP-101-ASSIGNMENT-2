@@ -1,3 +1,4 @@
+#pragma once
 
 
 #ifndef AWSSYSTEM_H
@@ -17,16 +18,17 @@ private:
     WindSensor windSensor;
     RainfallGauge rainfallGauge;
 
+    //arrays to store data for the last 30 days
     float temperatureData[30];
     int humidityData[30];
     float windSpeedData[30];
     float rainfallData[30];
 
 public:
-    
 
-    AWSSystem();
-    AWSSystem(const std::string& filename) {
+    //construtors 
+    AWSSystem();  
+    AWSSystem(const std::string& filename) {  
         readTemperatureDataFromFile(filename);
         readHumidityDataFromFile(filename);
         readWindSpeedDataFromFile(filename);
@@ -50,4 +52,3 @@ public:
 };
 
 #endif // AWSSYSTEM_H
-
