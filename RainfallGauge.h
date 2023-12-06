@@ -5,8 +5,8 @@
 
 class RainfallGauge {
 private:
-    float currentRainfall;
-
+    float currentRainfall;  //data member to hold current rainfall 
+     
 public:
     RainfallGauge();  // Constructor
     float getRainfall() const;
