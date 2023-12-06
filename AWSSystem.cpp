@@ -8,8 +8,6 @@
 #include <vector>
 
 // Constructor
-
-
 AWSSystem::AWSSystem()
     : temperatureSensor(), humiditySensor(), windSensor(), rainfallGauge() {
     // Initialize your sensors or any other necessary setup in the constructor
@@ -32,12 +30,12 @@ AWSSystem::AWSSystem()
 }
 
 
- // Add this include for string stream
+// Add this include for string stream
 
 
 
 
-
+//method to read temperature from a file
 void AWSSystem::readTemperatureDataFromFile(const std::string& filename) {
     std::ifstream file(filename);
     std::string line;
@@ -52,6 +50,7 @@ void AWSSystem::readTemperatureDataFromFile(const std::string& filename) {
                 return;
             }
 
+            //extracting  temperature values using string stream
             std::istringstream iss(line.substr(colonPos + 1));  // Skip the part before colon
             std::string token;
 
@@ -61,9 +60,9 @@ void AWSSystem::readTemperatureDataFromFile(const std::string& filename) {
             while (std::getline(iss, token, ',')) {
                 try {
                     float temperature = std::stof(token);
-                    temperatureSensor.setTemperature(temperature);
-                    temperatureValues.push_back(temperature);
-                }
+                    temperatureSensor.setTemperature(temperature);  //set temperature in sensor
+                    temperatureValues.push_back(temperature);       //store temperature values
+                } 
                 catch (const std::invalid_argument& e) {
                     // Handle invalid input (e.g., non-numeric value)
                     std::cerr << "Invalid temperature data in file: " << filename << std::endl;
@@ -72,7 +71,7 @@ void AWSSystem::readTemperatureDataFromFile(const std::string& filename) {
                 }
             }
 
-            // Assuming the file has consistent data structure, you can access values like this
+            //store temperature values in temperatureData array
             if (!temperatureValues.empty()) {
                 temperatureData[i] = temperatureValues[0];
             }
@@ -102,8 +101,8 @@ void AWSSystem::readHumidityDataFromFile(const std::string& filename) {
                 if (j == 1) { // The second value in the line is humidity
                     try {
                         int humidity = std::stoi(token);
-                        humiditySensor.setHumidity(humidity);
-                        humidityValues.push_back(humidity);
+                        humiditySensor.setHumidity(humidity); //set humidity in sensor
+                        humidityValues.push_back(humidity);   //set humidity values  
                     }
                     catch (const std::invalid_argument& e) {
                         // Handle invalid input (e.g., non-numeric value)
@@ -114,7 +113,7 @@ void AWSSystem::readHumidityDataFromFile(const std::string& filename) {
                 }
             }
 
-            // Assuming the file has consistent data structure, you can access values like this
+            //store humidity values in humidityData array
             if (humidityValues.size() >= 1) {
                 humidityData[i] = humidityValues[0];
             }
@@ -141,6 +140,7 @@ void AWSSystem::readWindSpeedDataFromFile(const std::string& filename) {
             // Use a vector to store the parsed values
             std::vector<float> windSpeedValues;
 
+            //loop through each token separated by ',' in the line
             for (int j = 0; j < 4 && std::getline(iss, token, ','); ++j) {
                 if (j == 2) { // The third value in the line is wind speed
                     try {
@@ -157,7 +157,7 @@ void AWSSystem::readWindSpeedDataFromFile(const std::string& filename) {
                 }
             }
 
-            // Assuming the file has consistent data structure, you can access values like this
+            //store wind speed values in windSpeedData array
             if (windSpeedValues.size() >= 1) {
                 windSpeedData[i] = windSpeedValues[0];
             }
@@ -187,6 +187,7 @@ void AWSSystem::readRainfallDataFromFile(const std::string& filename) {
             // Use a vector to store the parsed values
             std::vector<float> rainfallValues;
 
+            //loop through each token separated by ',' in the line
             for (int j = 0; j < 5 && std::getline(iss, token, ','); ++j) {
                 if (j == 3) { // The fourth value in the line is rainfall
                     try {
@@ -203,7 +204,7 @@ void AWSSystem::readRainfallDataFromFile(const std::string& filename) {
                 }
             }
 
-            // Assuming the file has consistent data structure, you can access values like this
+            //store rainfall values in rainfallData array
             if (rainfallValues.size() >= 1) {
                 rainfallData[i] = rainfallValues[0];
             }
@@ -230,6 +231,7 @@ float AWSSystem::calculateAverageTemperature() const {
     return sumTemperature / 30.0;
 }
 
+//method for calculating the average humidity 
 float AWSSystem::calculateAverageHumidity() const {
     float sumHumidity = 0;
     for (int i = 0; i < 30; ++i) {
@@ -238,6 +240,7 @@ float AWSSystem::calculateAverageHumidity() const {
     return sumHumidity / 30.0;
 }
 
+//method for calculating the total rainfall 
 float AWSSystem::calculateTotalRainfall() const {
     float totalRainfall = 0.0;
     for (int i = 0; i < 30; ++i) {
@@ -246,16 +249,16 @@ float AWSSystem::calculateTotalRainfall() const {
     return totalRainfall;
 }
 
+
 float AWSSystem::calculateAverageWindSpeed() const {
     float sumWindSpeed = 0.0;
     for (int i = 0; i < 30; ++i) {
         sumWindSpeed += windSpeedData[i];
     }
-    return sumWindSpeed / 30.0;
+    return sumWindSpeed / 30.0;  //calculate and return the average wind speed
 }
 
 // Method for inferring the season
-
 std::string AWSSystem::inferSeason() const {
     // Get the average temperature
     float avgTemperature = calculateAverageTemperature();
@@ -271,6 +274,6 @@ std::string AWSSystem::inferSeason() const {
         return "Spring";
     }
     else {
-        return "Summer";
+        return "Summer"; //otherwise, infer Summer
     }
 }
